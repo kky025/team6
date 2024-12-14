@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page 6</title>
+    <link rel="stylesheet" href="page6.css">
+</head>
+
+<body>
+    <div class="main">
+        <div class="introduction"><h3>앞서 기억해 둔 일기예보를 떠올리며 문제를 풀어보세요(1~4).</h3></div>
+        <div class="main_text">
+            <div class="probs">
+                    <div class="p1"><div class="p01">1. 오늘 전국의 날씨는 어떤가요? (1점)</div>
+                        <div class="ex">
+                            <span class="weather" id="no1"><div class="num">1</div>소나기</span>
+                            <span class="weather" id="no2"><div class="num">2</div>태풍</span>
+                            <span class="weather" id="no3"><div class="num">3</div>맑음</span>
+                            <span class="weather" id="no4"><div class="num">4</div>흐림</span>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="p2"><div class="p02">2. 오늘 오후에 비가 내리는 지역은 어디인가요? (1점)</div>
+                        <div class="ex">
+                            <span class="location" id="no5"><div class="num">1</div>동해안</span>
+                            <span class="location" id="no6"><div class="num">2</div>서해안</span>
+                            <span class="location" id="no7"><div class="num">3</div>남해안</span>
+                            <span class="location" id="no8"><div class="num">4</div>제주도</span>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="p3"><div>3. 토요일에 비가 오는 지역을 찾아 지도에 0표시를 하고 지역이름을 적어주세요. (2점)</div>
+                        <input id="ans3-1" placeholder="번호 입력"></input> , <input id="ans3-2" placeholder="지역 이름 입력"></input>
+                        <div class='map'><img src="p6map_real.png" width="200" alt=""/></div>
+                    </div>
+                    <br>
+                    <div class="p4"><div>4. 오늘 서울, 경남, 전북의 낮 기온을 적고 그래프에 그려보세요. (3점)</div>
+                    <div class="TnG">
+                        <span>
+                            <table border="1" style="width:250px;">
+                                <tbody>
+                                    <tr><td>서울</td><td><input class="ans" id="ans4-1"></td></tr>
+                                    <tr><td>경남</td><td><input class="ans" id="ans4-2"></td></tr>
+                                    <tr><td>전북</td><td><input class="ans" id="ans4-3"></td></tr>
+                                </tbody>
+                            </table>
+                        </span>
+                        <div class="value-Y">
+                            <div>30</div>
+                            <div>25</div>
+                            <div>20</div>
+                            <div>15</div>
+                            <div>10</div>
+                            <div>5</div>
+                            <div>0</div>
+                        </div>
+                        <div class="graph">
+                                <span class="bar" id="bar1"></span>
+                                <span class="bar" id="bar2"></span>
+                                <span class="bar" id="bar3"></span>
+                        </div>
+                    </div>
+                        <div class="value-X">
+                            <span class="x">서울</span>
+                            <span class="x">경남</span>
+                            <span class="x">전북</span>
+                        </div>
+                    </div>
+            </div>
+
+        </div>
+        
+        <button id = "submit">제출</button>
+        <button onclick="location.href='page7.html'">다음페이지</button>
+    </div>
+
+    <script>
+        const answer1 = 4;
+        const answer2 = 1;
+        const answer3 = ['3', '동해안'];
+        const answer4 = ['23', '25', '27'];
+
+        let isSelected1 = false;
+        let isSelected2 = false;
+        let selectedText1 = '';
+        let selectedText2 = '';
+
+        let answerArray3 = [];
+        let answerArray4 = [];
+
+        const onClickText1 = (event) => {
+            const clickedText = event.target;
+
+            if (!isSelected1){
+                selectedText1 = clickedText;
+                clickedText.style.border = "2px solid #008000";
+                isSelected1 = true;
+            } else{
+                if (isSelected1){
+                selectedText1.style.border = 'none';
+                }
+                selectedText1 = clickedText;
+                clickedText.style.border = "2px solid #008000";
+            }
+        }
+        
+        const onClickText2 = (event) => {
+            const clickedText = event.target;
+            if (!isSelected2){
+                selectedText2 = clickedText;
+                clickedText.style.border = "2px solid #008000";
+                isSelected2 = true;
+            } else{
+                if (isSelected2){
+                    selectedText2.style.border = 'none';
+                }
+                selectedText2 = clickedText;
+                clickedText.style.border = "2px solid #008000";
+            }
+        }
+
+        const onChangeBar = (event, bar) => {
+            const changeBar = parseInt(event.target.value);
+
+            if (typeof changeBar == NaN){
+                return;
+            }
+            if (changeBar > 30){
+                bar.style.height = "100%";
+            } else {
+                bar.style.height = `${changeBar / 0.3}%`;
+            }
+        }
+
+        const isBlank = () => {
+            let TorF = false;
+
+            if (!selectedText1) {
+                TorF = true;
+                document.querySelector('.p01').style.border = "2px solid red";
+            } else {
+                document.querySelector('.p01').style.border = "none";
+            }
+            if (!selectedText2) {
+                TorF = true;
+                document.querySelector('.p02').style.border = "2px solid red";
+            } else {
+                document.querySelector('.p02').style.border = "none";
+            }
+            for (let i = 0; i < 2; i++) {
+                const input = document.querySelector(`#ans3-${i + 1}`);
+                if (!input.value) {
+                    TorF = true;
+                    input.style.border = "2px solid red";
+                } else {
+                    input.style.border = "1px solid black";
+                }
+            }
+            for (let i = 0; i < 3; i++) {
+                const input = document.querySelector(`#ans4-${i + 1}`);
+                if (!input.value) {
+                    TorF = true;
+                    input.style.border = "2px solid red";
+                } else {
+                    input.style.border = "1px solid black";
+                }
+            }
+
+            return TorF;
+        }
+
+        const scoreAnswer = (event) => {
+            let count = 0;
+            
+            if(isBlank()){
+                alert('답을 다 입력해주세요.');
+                return;
+            }
+            
+            if (selectedText1.id.split('o')[1] == answer1){
+                count++;
+            }
+            if ((selectedText2.id.split('o')[1])-4 == answer2){
+                count++;
+            }
+            for (let i = 0; i < 2; i++){
+                const input = document.querySelector(`#ans3-${i+1}`);
+                answerArray3[i] = input.value;
+
+                if (answerArray3[i] == answer3[i]){
+                    count++;
+                }
+            }
+            for (let i = 0; i < 3; i++){
+                const input = document.querySelector(`#ans4-${i+1}`);
+                answerArray4[i] = input.value;
+
+                if (answerArray4[i] == answer4[i]){
+                    count++;
+                }
+            }
+
+            alert('맞춘 답의 개수는 ' + count + '개 입니다.');
+        }
+
+        
+        [1, 2, 3, 4].forEach((n) => {
+            document.querySelector(`#no${n}`).addEventListener('click', onClickText1);
+        });
+        [5, 6, 7, 8].forEach((n) => {
+            document.querySelector(`#no${n}`).addEventListener('click', onClickText2);
+        });
+        [1, 2, 3].forEach((n) => {
+            const input = document.querySelector(`#ans4-${n}`);
+            const bar = document.querySelector(`#bar${n}`);
+
+            input.addEventListener("input", (event) =>
+            onChangeBar(event, bar))
+        });
+
+        document.querySelector("#submit").addEventListener('click', scoreAnswer);
+
+    </script>
+</body>
+</html>

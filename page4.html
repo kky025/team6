@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4page</title>
+    <link rel="stylesheet" href="page4.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">앞의 사진은 1988년도에 일어난 사진들입니다. 그 당시를 떠올리며 문제를 풀어보세요(1~5).</h1>
+
+        <div id="questionbox" class="questionbox">
+            <h2 id="question" class="question"></h2>
+            <input type="text" id="answer" class="answer" placeholder="답을 입력하세요" />
+            <button id="submit" class="submit-btn">제출</button>
+            <p id="feedback" class="feedback"></p>
+            <button id="next" class="next-btn" style="display: none;">다음</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            { text: "1. 1988년도에 나이가 몇 살이었나요?", answer: null, userAnswer: "" },
+            { text: "2. 그 당시 대통령은 누구였나요?", answer: ["노태우", "노태우 대통령"], userAnswer: "" },
+            { text: "3. 그 시절 좋아하던 노래는 무엇이었나요?", answer: null, userAnswer: "" },
+            { text: "4. 서울올림픽이 열렸던 그 날 무엇을 했나요?", answer: null, userAnswer: "" },
+            { text: "5. 당시에 추억을 떠올리며 가장 행복했던 일을 적어보세요.", answer: null, userAnswer: "" }
+        ];
+
+        let currentQuestion = 0;
+
+        function showQuestion() {
+            document.getElementById("question").textContent = questions[currentQuestion].text;
+            document.getElementById("answer").value = "";
+            document.getElementById("feedback").textContent = "";
+            document.getElementById("next").style.display = "none";
+        }
+
+        document.getElementById("submit").addEventListener("click", () => {
+            const userAnswer = document.getElementById("answer").value.trim().toLowerCase();
+            const correctAnswer = questions[currentQuestion].answer;
+
+            questions[currentQuestion].userAnswer = userAnswer;
+
+            if (correctAnswer === null) {
+                document.getElementById("feedback").textContent = "답변이 저장되었습니다.";
+                document.getElementById("next").style.display = "inline";
+            } else if (Array.isArray(correctAnswer)) {
+                const isCorrect = correctAnswer.some(answer => answer.toLowerCase() === userAnswer);
+                if (isCorrect) {
+                    document.getElementById("feedback").textContent = "정답입니다!";
+                    document.getElementById("next").style.display = "inline";
+                } else {
+                    document.getElementById("feedback").textContent = "정답이 아닙니다.";
+                }
+            } else {
+                if (correctAnswer.toLowerCase() === userAnswer) {
+                    document.getElementById("feedback").textContent = "정답입니다!";
+                    document.getElementById("next").style.display = "inline";
+                } else {
+                    document.getElementById("feedback").textContent = "정답이 아닙니다.";
+                }
+            }
+        });
+
+        document.getElementById("next").addEventListener("click", () => {
+            currentQuestion++;
+            if (currentQuestion < questions.length) {
+                showQuestion();
+            } else {
+                let resultHTML = "<h2>모든 문제를 완료했습니다!</h2><ul>";
+                questions.forEach((question, index) => {
+                    resultHTML += `<li>${question.text} <br>답: ${question.userAnswer}</li>`;
+                });
+                resultHTML += "</ul><button onclick=\"location.href='page5.html'\">다음 페이지</button>";
+                document.getElementById("questionbox").innerHTML = resultHTML;
+            }
+        });
+
+        showQuestion();
+    </script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5page</title>
+    <link rel="stylesheet" href="page5.css">
+</head>
+
+<body>
+    <div class="main">
+        <div class="introduction"><h3>앞서 기억해 둔 일기예보를 떠올리며 빈칸에 알맞은 내용을 적어보세요.</h1></div>
+        <div class="ex">
+        <div class="main_text">
+            <div class="text">
+            <p>1988년 9월 17일 토요일 날씨 전해드리겠습니다.</p>
+            <p>현재 <input id = "no1"></input>의 기온은 16도로 예년 기온을 밑돌고 있지만, 한낮에는 23도까지 오르며 예년의 기온과 비슷하겠습니다.</p>
+            <p>전국이 대체로 흐린 가운데 지형적 영향을 받는 <input id = "no2"></input>에는 오후 한때 비가 조금 내리겠습니다.</p>
+            <p>낮 기온 서울 23도, 경남 25도, 전북 27도로 <input id = "no3"></input> 날씨를 보이겠으며, <input id = "no4"></input>을 시작으로 <input id = "no5"></input>에 전국적으로 가을비가 내릴 것으로 전망됩니다.</p>
+            </div>
+        </div>
+        <div class="map-container">
+            <img src="5page.jpg" alt="">
+        </div>
+
+        <div class="msg">
+            <p>일기예보를 기억해 주세요.</p>
+        </div>
+        <button id = "submit" class = "submit-btn">제출</button>
+        <button onclick="location.href='page6.html'" class = "next-btn">다음페이지</button>
+    </div>
+    <script>
+        const answer = ['서울', '동해안', '초가을', '영동 지방', '일요일'];
+        let answerArray = [];
+        
+        const scoreAnswer = (event) => {
+            let count = 0;
+            let isBlank = false;
+
+            for (let i = 0; i < 5; i++){
+                const input = document.querySelector(`#no${i+1}`);
+                answerArray[i] = input.value;
+                    if (answerArray[i] == ''){
+                        input.style.border = "2px solid #ff0000";
+                        isBlank = true;
+                    } else {
+                        input.style.borderColor = "black";
+                        input.style.borderWidth = "0 0 1px";
+                    }
+            }
+
+            if(isBlank){
+                alert('답을 다 입력해주세요.');
+                return;
+            }
+        
+            for (let i = 0; i < 5; i++){
+                if (answerArray[i] == answer[i]){
+                    count++;
+                }
+            }
+            
+            alert('맞춘 답의 개수는 ' + count + '개 입니다.');
+        }
+        
+
+        document.querySelector("#submit").addEventListener('click', scoreAnswer);
+    </script>
+</body>
+</html>

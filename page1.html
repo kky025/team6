@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page 1</title>
+    <style>
+        .highlight {
+            border: 2px solid blue;
+        }
+        .date-input {
+            display: flex;
+            align-items: center;
+        }
+        .date-input input {
+            margin-right: 5px;
+        }
+        .button-container {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+        .button-container button {
+            margin-left: 10px;
+        }
+        .forecast-container {
+            display: flex;
+            align-items: center;
+        }
+        .forecast-container button {
+            margin-left: 10px;
+        }
+        .forecast-image {
+            margin-top: 10px;
+            max-width: 100%;
+            height: auto;
+        }
+        .forecast-note {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        .weather-icon {
+            width: 2cm;
+            height: 2cm;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h2>오늘의 날짜를 적고 날씨를 선택하세요.</h2>
+    <div class="date-input">
+        <input type="text" id="year">
+        <span>년</span>
+        <input type="text" id="month">
+        <span>월</span>
+        <input type="text" id="day">
+        <span>일</span>
+        <input type="text" id="weekday">
+        <span>요일</span>
+        <div class="button-container">
+            <button onclick="saveDate()">저장</button>
+        </div>
+    </div>
+    <p id="savedDate"></p>
+
+    <div>
+        <img src="sun.png" alt="맑음" onclick="highlightWeather(this)" class="weather-icon">
+        <img src="cloud.png" alt="흐림" onclick="highlightWeather(this)" class="weather-icon">
+        <img src="rain.png" alt="비" onclick="highlightWeather(this)" class="weather-icon">
+        <img src="snow.png" alt="눈" onclick="highlightWeather(this)" class="weather-icon">
+    </div>
+
+    <h2 class="forecast-container">다음 일기예보를 읽어 보세요.</h2>
+    <p id="forecastText">
+        1988년 9월 17일 토요일 날씨 전해드리겠습니다. 현재 서울의 기온은 16도로 예년 기온을 밑돌고 있지만, 한낮에는 23도까지 오르며 예년의 기온과 비슷하겠습니다. 
+        전국이 대체로 흐린 가운데 지형적 영향을 받는 동해안에는 오후 한때 비가 조금 내리겠습니다.
+        낮 기온은 서울 23도, 경남 25도, 전북 27도로 초가을 날씨를 보이겠으며, 영동 지방을 시작으로 일요일에 전국적으로 가을비가 내릴 것으로 전망됩니다.
+    </p>
+    <img src="forecast.jpg" alt="일기예보 이미지" class="forecast-image">
+    <p class="forecast-note">일기예보를 기억하세요.</p>
+    
+    <div class="button-container">
+        <button onclick="confirmReading()">확인</button>
+    </div>
+    <a id="nextPage" href="page2.html"></a>
+
+    <script>
+        let selectedWeather = "";
+
+        function saveDate() {
+            const year = document.getElementById('year').value;
+            const month = document.getElementById('month').value;
+            const day = document.getElementById('day').value;
+            const weekday = document.getElementById('weekday').value;
+
+            const inputs = [year, month, day];
+            let dateCheck = true;
+
+            for(let i = 0; i < inputs.length; i++){
+                const input = inputs[i];
+                if(input === "" || parseInt(input, 10) != input){
+                    dateCheck = false;
+                    break;
+                }
+            }
+
+            if(!dateCheck){
+                alert("년도, 월, 일에는 숫자만 입력해 주세요.");
+                return;
+            }
+
+            const checkWeekdays = ["월", "화", "수", "목", "금", "토", "일"];
+            if (!checkWeekdays.includes(weekday)) {
+                alert("요일은 (월, 화, 수, 목, 금, 토, 일) 중 하나를 입력해 주세요.");
+                return;
+            }
+
+            const savedDate = `${year}년 ${month}월 ${day}일 ${weekday}`;
+            document.getElementById('savedDate').innerText = '저장된 날짜: ' + savedDate;
+
+            if (selectedWeather) {
+                alert(`저장된 날짜: ${savedDate}\n선택된 날씨: ${selectedWeather}`);
+            } else {
+                alert(`저장된 날짜: ${savedDate}\n날씨가 선택되지 않았습니다.`);
+            }
+        }
+
+        function highlightWeather(element) {
+            const icons = document.querySelectorAll('.weather-icon');
+            let isHighlighted = element.classList.contains('highlight');
+
+            icons.forEach(icon => {
+                icon.classList.remove('highlight');
+            });
+
+            if (!isHighlighted) {
+                element.classList.add('highlight');
+                selectedWeather = element.alt;
+            }
+        }
+
+        function confirmReading() {
+            const checkButton = confirm("소리내어 읽으셨나요?");
+            if (checkButton) {
+                document.getElementById('nextPage').click();
+            } else {
+                alert("꼭 소리내어 읽어주세요.");
+            }
+        }
+    </script>
+</body>
+</html>

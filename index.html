@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>로그인 페이지</title>
+  <style>
+    .container {
+            width: 500px;
+            margin: 0 auto;
+            border: 1px solid #ccc;
+            padding: 200px;
+            border: 1px solid black;
+        }
+    .parent{
+      text-align: center;
+    }
+    form {
+      border: 1px solid #ccc;
+      padding: 50px;
+      border-radius: 5px;
+      width: 200px;
+      margin: 0 auto;
+    }
+    input {
+      display: block;
+      margin-bottom: 10px;
+    }
+    input[type="button"] {
+      background-color: #007BFF;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container" >
+    <div class="parent">
+    <h2>일기예보</h2>
+    <p>소개</p >
+    </div>
+  <form action="">
+    <label for="id">아이디</label>
+    <input type="text" id="id" required>
+    <label for="password">암호</label>
+    <input type="password" id="password" required>
+    <input type="button" value=" 입장" onclick="checkLogin()">
+  </form>
+  <script>
+    function checkLogin() {
+      var id = document.getElementById('id').value;
+      var password = document.getElementById('password').value;
+      if (id === "" || password === "") {
+        alert('내용을 입력해주세요');
+        return;
+      }
+      if (id === "111" && password === "222") {
+        alert("true");
+        window.location.href = "page1.html";
+      }else{
+        alert("false");
+      }
+    }
+  </script>
+</body>
+
+</html>

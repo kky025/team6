@@ -1,0 +1,93 @@
+.main {
+  width: 1280px;
+  margin: 0 auto;
+  border: 1px solid ;
+  text-align: center;
+}
+
+.introduction {
+  width: 600px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.probs {
+  width: 600px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.ex{
+    padding: 15px 0 0 0;
+}
+
+.num {
+  display: inline-block;
+  border-radius: 50%;
+  border: 1px solid #000;
+  width: 22px;
+  height: 22px;
+  font-weight: bold;
+  text-align: center;
+  margin-right: 5px;
+}
+
+.weather {
+  display: inline-block;
+  margin: 0 17px 0 7px;
+  width: 100px;
+}
+
+.location {
+  display: inline-block;
+  width: 100px;
+  margin: 0 17px 0 7px;
+}
+
+.map {
+  display: inline-block;
+}
+
+.TnG {
+  display: flex;
+  align-items: center;
+  padding: 20px 0 0 0;
+}
+
+.bar {
+  width: 25px;
+  height: 50%;
+  border: 1px solid #000;
+  background-color: #000;
+  margin: 5px 25px 0 25px;
+}
+
+.value-Y{
+  text-align: right;
+  line-height: 33px;
+  margin: 0 0 0 45px;
+}
+
+.graph{
+  display: flex;
+  align-items: flex-end;
+  height: 200px;
+  border: 1px solid #000;
+  margin: 0 0 0 5px;
+}
+
+.value-X{
+  margin: 0 0 0 340px;
+  padding: 0 0 20px 0;
+}
+
+.x{
+  margin: 0 40px 0 0;
+}
+
+.ans{
+  border-width: 0;
+  height: 100%;
+  width: 95%;
+  text-align: right;
+}

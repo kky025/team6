@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>page 3</title>
+  <style>
+  .parent{
+    text-align: center;
+    }
+    </style>
+</head>
+
+<body>
+  <div class="parent">
+    <img src="3.png"  width="800" height="800">
+  </div>
+  <div class="parent">
+  <input type="text" id="numInput"> 
+  <button onclick="checkNumber()">확인</button>
+</div>
+  <script>
+    function checkNumber() {
+      var inputStr = document.getElementById('numInput').value.trim(); 
+      if (inputStr === "") {
+        alert('내용을 입력해주세요');
+        return;
+      }
+      var inputNums = inputStr.split(',').map(num => Number(num.trim())).filter(num =>!isNaN(num)); 
+      var correctNums = [1, 4, 8, 11];
+      var isAllCorrect = inputNums.every(num => correctNums.includes(num));
+      if (isAllCorrect) {
+        alert('true');
+        window.location.href = "page4.html";
+      } else {
+        alert('false');
+      }
+    }
+  </script>
+</body>
+
+</html>

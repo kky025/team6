@@ -1,0 +1,43 @@
+.main{
+    width: 1280px;
+    margin: 0 auto;
+    border: 1px solid black;
+    text-align: center;
+}
+
+.introduction{
+    width: 600px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.ex{
+    width: 600px;
+    margin: 0 auto;
+    text-align: center;
+    /* border-radius: ; */
+    border: 1px solid #000;
+}
+
+.main_text{
+    width: 600px;
+    margin: 30px 0 0 340px;
+    border: 1px solid #000;
+    padding: 20px 0 20px 0;
+}
+
+.text{
+    width: 550px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+input{
+    border-width: 0 0 1px;
+}
+
+.msg{
+    width: 600px;
+    margin: 0 auto;
+    text-align: left;
+}
